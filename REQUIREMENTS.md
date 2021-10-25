@@ -5,38 +5,38 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index [GET] '/products
+- Show [GET] '/products/id'
+- Create [POST] '/products' [token required]
+<!-- - [OPTIONAL] Top 5 most popular products 
+- [OPTIONAL] Products by category (args: product category) -->
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [GET] '/users' [token required]
+- Show [GET] '/users/:id' [token required]
+- Create [POST] '/users' N[token required]
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user [GET] '/orders/:user_id'(args: user id)[token required]
+<!-- - [OPTIONAL] Completed Orders by user (args: user id)[token required] -->
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
+-  id: SERIAL PRIMARY KEY,
+- name: VARCHAR(64) NOT NULL,
+- price: INTEGTER NOT NULL DEFAULT 0,
 - [OPTIONAL] category
 
 #### User
-- id
-- firstName
-- lastName
-- password
+- id: SERIAL PRIMARY KEY,
+- firstName: VARCHAR (30) NOT NULL,
+- lastName: VARCHAR (30) NOT NULL,
+- password: VARCHAR NOT NULL
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id: SERIAL PRIMARY KEY,
+- id of each product in the order: int REFERENCES product(id),
+- quantity of each product in the order: INTEGER,
+- user_id: int REFERENCES users(id),
+- status of order (active or complete): VARCHAR (15) DEFAULT 'active'
 
